@@ -10,7 +10,7 @@ import com.sbs.jhs.be.dto.Article;
 
 @Mapper
 public interface ArticleDao {
-	List<Article> getArticles();
+	List<Article> getArticles(Map<String, Object> param);
 
 	Article getArticle(@Param("id") int id);
 }

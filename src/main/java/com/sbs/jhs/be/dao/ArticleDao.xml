@@ -6,8 +6,10 @@
 	<select id="getArticles" resultType="Article">
 		SELECT *
 		FROM article
-		ORDER BY
-		id DESC
+		ORDER BY id DESC
+		<if test="limit != null">
+			LIMIT #{limit}
+		</if>
 	</select>
 
 	<select id="getArticle" resultType="Article">
