@@ -65,3 +65,37 @@ updateDate = NOW(),
 memberId = 2,
 title = '제목3',
 `body` = '내용3';
+
+# 게시판 테이블 추가
+CREATE TABLE `board` (
+    id INT(10) UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    regDate DATETIME NOT NULL,
+    updateDate DATETIME NOT NULL,
+    `code` CHAR(20) UNIQUE NOT NULL,
+    `name` CHAR(20) UNIQUE NOT NULL
+);
+
+# 공지 게시판 추가
+INSERT INTO board
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'notice',
+`name` = '공지';
+
+# 자유 게시판 추가
+INSERT INTO board
+SET regDate = NOW(),
+updateDate = NOW(),
+`code` = 'free',
+`name` = '자유';
+
+# 게시물 테이블에 게시판 번호 추가
+ALTER TABLE article ADD COLUMN boardId INT(10) UNSIGNED NOT NULL AFTER updateDate;
+
+# 기존 미분류 게시물들을 자유게시판으로 설정
+UPDATE article
+SET boardId = 2
+WHERE boardId = 0;
+
+# 게시물 테이블에서 게시판 별 분류를 빠르게 하기 위해 인덱스 걸기
+ALTER TABLE `article` ADD INDEX (`boardId`); 
