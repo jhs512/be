@@ -25,7 +25,7 @@ public class ArticleController {
 			param.put("limit", limit);
 			param.put("limitFrom", 0);
 		}
-		
+
 		if (param.get("page") != null) {
 			int page = Integer.parseInt((String) param.get("page"));
 			int limit = 10;
@@ -43,5 +43,14 @@ public class ArticleController {
 	public Article getArticle(int id) {
 		Article article = articleService.getArticle(id);
 		return article;
+	}
+
+	@RequestMapping("/usr/article/doAddArticle")
+	@ResponseBody
+	public String doAddArticle(@RequestParam Map<String, Object> param) {
+		param.put("memberId", 1);
+		int id = articleService.addArticle(param);
+
+		return id + "번 게시물이 생성되었습니다.";
 	}
 }
