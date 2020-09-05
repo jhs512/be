@@ -36,7 +36,7 @@ public class MemberController {
 		}
 
 		List<Member> members = memberService.getMembers(param);
-		
+
 		return new ResultData("S-1", String.format("총 %d개의 회원 입니다.", members.size()), "members", members);
 	}
 
