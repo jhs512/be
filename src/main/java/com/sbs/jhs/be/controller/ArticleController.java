@@ -55,6 +55,14 @@ public class ArticleController {
 
 		return new ResultData("S-1", id + "번 게시물이 생성되었습니다.", "id", id);
 	}
+	
+	@RequestMapping("/usr/article/doDeleteArticle")
+	@ResponseBody
+	public ResultData doDeleteArticle(int id) {
+		articleService.deleteArticle(id);
+
+		return new ResultData("S-1", id + "번 게시물이 삭제되었습니다.", "id", id);
+	}
 
 	@RequestMapping("/usr/article/doModifyArticle")
 	@ResponseBody
