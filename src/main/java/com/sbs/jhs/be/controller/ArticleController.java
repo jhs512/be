@@ -74,6 +74,6 @@ public class ArticleController {
 
 		articleService.modifyArticle(param);
 
-		return new ResultData("S-1", id + "번 게시물이 수정되었습니다.");
+		return new ResultData("S-1", id + "번 게시물이 수정되었습니다.", "id", id);
 	}
 }

@@ -49,5 +49,6 @@
 				boardId = #{boardId},
 			</if>
 		</set>
+		WHERE id = #{id}
 	</update>
 </mapper>
