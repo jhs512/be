@@ -19,4 +19,15 @@
 		=
 		#{id}
 	</select>
+
+	<insert id="join" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO member
+		SET regDate = NOW(),
+		updateDate = NOW(),
+		loginId = #{loginId},
+		loginPw = #{loginPw},
+		`name` = #{name},
+		`nickname` = #{nickname},
+		`authKey` = #{authKey}
+	</insert>
 </mapper>

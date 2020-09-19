@@ -99,3 +99,7 @@ WHERE boardId = 0;
 
 # 게시물 테이블에서 게시판 별 분류를 빠르게 하기 위해 인덱스 걸기
 ALTER TABLE `article` ADD INDEX (`boardId`); 
+
+# 회원의 authKey 칼럼 추가
+ALTER TABLE `member` ADD COLUMN `authKey` VARCHAR(100) NULL AFTER `nickname`; 
+

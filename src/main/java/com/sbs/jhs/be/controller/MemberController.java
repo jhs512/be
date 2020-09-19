@@ -46,4 +46,12 @@ public class MemberController {
 		Member member = memberService.getMember(id);
 		return new ResultData("S-1", String.format("%d번 회원입니다.", id), "member", member);
 	}
+	
+	@RequestMapping("/usr/member/doJoin")
+	@ResponseBody
+	public ResultData doJoin(@RequestParam Map<String, Object> param) {
+		int id = memberService.join(param);
+
+		return new ResultData("S-1", id + "번 회원이 생성되었습니다.", "id", id);
+	}
 }
