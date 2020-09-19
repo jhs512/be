@@ -14,4 +14,6 @@ public class Member {
 	private String loginPw;
 	private String name;
 	private String nickname;
+	@JsonIgnore
+	private String authKey;
 }

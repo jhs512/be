@@ -37,4 +37,8 @@ public class MemberService {
 		return UUID.randomUUID().toString();
 	}
 
+	public Member getMemberByLoginId(String loginId) {
+		return memberDao.getMemberByLoginId(loginId);
+	}
+
 }

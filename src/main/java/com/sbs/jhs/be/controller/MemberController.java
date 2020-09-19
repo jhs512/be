@@ -46,12 +46,28 @@ public class MemberController {
 		Member member = memberService.getMember(id);
 		return new ResultData("S-1", String.format("%d번 회원입니다.", id), "member", member);
 	}
-	
+
 	@RequestMapping("/usr/member/doJoin")
 	@ResponseBody
 	public ResultData doJoin(@RequestParam Map<String, Object> param) {
 		int id = memberService.join(param);
 
 		return new ResultData("S-1", id + "번 회원이 생성되었습니다.", "id", id);
+	}
+
+	@RequestMapping("/usr/member/doLogin")
+	@ResponseBody
+	public ResultData doLogin(String loginId, String loginPw) {
+		Member member = memberService.getMemberByLoginId(loginId);
+
+		if (member == null) {
+			return new ResultData("F-1", String.format("아이디가 %s인 회원은 존재하지 않습니다.", loginId));
+		}
+
+		if (member.getLoginPw().equals(loginPw) == false) {
+			return new ResultData("F-2", String.format("비밀번호가 일치하지 않습니다.", loginId));
+		}
+
+		return new ResultData("S-1", String.format("%s님 환영합니다.", member.getNickname()), "authKey", member.getAuthKey());
 	}
 }
