@@ -52,7 +52,7 @@ public class MemberController {
 	public ResultData doJoin(@RequestParam Map<String, Object> param) {
 		int id = memberService.join(param);
 
-		return new ResultData("S-1", id + "번 회원이 생성되었습니다.", "id", id);
+		return new ResultData("S-1", "가입되었습니다.", "id", id);
 	}
 
 	@RequestMapping("/usr/member/doLogin")
@@ -68,6 +68,6 @@ public class MemberController {
 			return new ResultData("F-2", String.format("비밀번호가 일치하지 않습니다.", loginId));
 		}
 
-		return new ResultData("S-1", String.format("%s님 환영합니다.", member.getNickname()), "authKey", member.getAuthKey());
+		return new ResultData("S-1", String.format("%s님 환영합니다.", member.getNickname()), "loginId", loginId, "authKey", member.getAuthKey());
 	}
 }
