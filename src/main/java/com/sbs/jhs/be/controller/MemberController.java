@@ -68,6 +68,7 @@ public class MemberController {
 			return new ResultData("F-2", String.format("비밀번호가 일치하지 않습니다.", loginId));
 		}
 
-		return new ResultData("S-1", String.format("%s님 환영합니다.", member.getNickname()), "loginId", loginId, "authKey", member.getAuthKey());
+		return new ResultData("S-1", String.format("%s님 환영합니다.", member.getNickname()), "loginId", loginId, "authKey",
+				member.getAuthKey());
 	}
 }

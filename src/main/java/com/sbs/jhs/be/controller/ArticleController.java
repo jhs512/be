@@ -3,6 +3,8 @@ package com.sbs.jhs.be.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,16 +51,26 @@ public class ArticleController {
 
 	@RequestMapping("/usr/article/doAddArticle")
 	@ResponseBody
-	public ResultData doAddArticle(@RequestParam Map<String, Object> param) {
-		param.put("memberId", 1);
+	public ResultData doAddArticle(@RequestParam Map<String, Object> param, HttpServletRequest req) {
+		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
+		param.put("memberId", loginedMemberId);
+
 		int id = articleService.addArticle(param);
 
 		return new ResultData("S-1", id + "번 게시물이 생성되었습니다.", "id", id);
 	}
-	
+
 	@RequestMapping("/usr/article/doDeleteArticle")
 	@ResponseBody
-	public ResultData doDeleteArticle(int id) {
+	public ResultData doDeleteArticle(int id, HttpServletRequest req) {
+		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
+		
+		Article article = articleService.getArticle(id);
+		
+		if ( loginedMemberId != article.getMemberId() ) {
+			return new ResultData("F-1", "권한이 없습니다.");			
+		}
+		
 		articleService.deleteArticle(id);
 
 		return new ResultData("S-1", id + "번 게시물이 삭제되었습니다.", "id", id);
@@ -66,7 +78,15 @@ public class ArticleController {
 
 	@RequestMapping("/usr/article/doModifyArticle")
 	@ResponseBody
-	public ResultData doModifyArticle(@RequestParam Map<String, Object> param, int id) {
+	public ResultData doModifyArticle(@RequestParam Map<String, Object> param, int id, HttpServletRequest req) {
+		
+		int loginedMemberId = (int) req.getAttribute("loginedMemberId");
+		
+		Article article = articleService.getArticle(id);
+		
+		if ( loginedMemberId != article.getMemberId() ) {
+			return new ResultData("F-1", "권한이 없습니다.");			
+		}
 
 		if (param.get("boardId") != null) {
 			param.remove("boardId");

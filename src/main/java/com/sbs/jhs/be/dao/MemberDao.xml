@@ -25,6 +25,12 @@
         FROM member
         WHERE loginId = #{loginId}
     </select>
+    
+    <select id="getMemberByLoginAuthKey" resultType="Member">
+        SELECT *
+        FROM member
+        WHERE authKey = #{loginAuthKey}
+    </select>
 
 	<insert id="join" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO member

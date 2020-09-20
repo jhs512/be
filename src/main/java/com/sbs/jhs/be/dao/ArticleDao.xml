@@ -6,6 +6,10 @@
 	<select id="getArticles" resultType="Article">
 		SELECT *
 		FROM article
+		WHERE 1
+		<if test="boardId != null">
+			AND boardId = #{boardId}
+		</if>
 		ORDER BY id DESC
 		<if test="limit != null">
 			LIMIT #{limitFrom}, #{limit}
@@ -18,11 +22,11 @@
 		WHERE id
 		= #{id}
 	</select>
-	
+
 	<delete id="deleteArticle">
-        DELETE FROM article
-        WHERE id = #{id}
-    </delete>
+		DELETE FROM article
+		WHERE id = #{id}
+	</delete>
 
 	<insert id="addArticle" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO article

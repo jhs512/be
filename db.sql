@@ -105,8 +105,12 @@ ALTER TABLE `member` ADD COLUMN `authKey` VARCHAR(100) NOT NULL AFTER `nickname`
 
 # 기존에 가입된, 인증키가 없는 분들 처리
 UPDATE `member`
-SET authKey = '1'
+SET authKey = id
 WHERE authKey = '';
 
 SELECT *
 FROM `member`;
+
+# 검색을 빠르게 하기위해, char 형으로 변경, 인덱스도 추가
+ALTER TABLE `member` CHANGE `authKey` `authKey` CHAR(100) NOT NULL, ADD INDEX (`authKey`);
+
